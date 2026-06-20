@@ -1,151 +1,152 @@
-import doctorService from "../services/doctorService";
+import doctorService from '../services/doctorService.js';
 
-let getTopDoctorHome = async (req, res) => {
+export const getTopDoctorHome = async (req, res) => {
   let limit = req.query.limit;
   if (!limit) limit = 10;
   try {
-    let response = await doctorService.getTopDoctorHome(+limit);
+    const response = await doctorService.getTopDoctorHome(+limit);
     return res.status(200).json(response);
   } catch (e) {
-    console.log(e);
-    return res.status(200).json({
+    console.error(e);
+    return res.status(500).json({
       errCode: -1,
-      errMessage: "Error from server...",
+      errMessage: 'Error from server...',
     });
   }
 };
 
-let getAllDoctors = async (req, res) => {
+export const getAllDoctors = async (req, res) => {
   try {
-    let doctors = await doctorService.getAllDoctors();
+    const doctors = await doctorService.getAllDoctors();
     return res.status(200).json(doctors);
   } catch (e) {
-    return res.status(200).json({
+    console.error(e);
+    return res.status(500).json({
       errCode: -1,
-      errMessage: "Error from server!",
+      errMessage: 'Error from server!',
     });
   }
 };
 
-let postInfoDoctor = async (req, res) => {
+export const postInfoDoctor = async (req, res) => {
   try {
-    let response = await doctorService.saveDetailInfoDoctor(req.body);
+    const response = await doctorService.saveDetailInfoDoctor(req.body);
     return res.status(200).json(response);
   } catch (e) {
-    console.log(e);
-    return res.status(200).json({
+    console.error(e);
+    return res.status(500).json({
       errCode: -1,
-      errMessage: "Error from server!",
+      errMessage: 'Error from server!',
     });
   }
 };
 
-let getDetailDoctorById = async (req, res) => {
+export const getDetailDoctorById = async (req, res) => {
   try {
-    let info = await doctorService.getDetailDoctorById(req.query.id);
+    const info = await doctorService.getDetailDoctorById(req.query.id);
     return res.status(200).json(info);
   } catch (e) {
-    console.log(e);
-    return res.status(200).json({
+    console.error(e);
+    return res.status(500).json({
       errCode: -1,
-      errMessage: "Error form server!",
+      errMessage: 'Error from server!',
     });
   }
 };
 
-let bulkCreateSchedule = async (req, res) => {
+export const bulkCreateSchedule = async (req, res) => {
   try {
-    let info = await doctorService.bulkCreateSchedule(req.body);
+    const info = await doctorService.bulkCreateSchedule(req.body);
     return res.status(200).json(info);
   } catch (e) {
-    console.log(e);
-    return res.status(200).json({
+    console.error(e);
+    return res.status(500).json({
       errCode: -1,
-      errMessage: "Error form server!",
+      errMessage: 'Error from server!',
     });
   }
 };
 
-let getScheduleByDate = async (req, res) => {
+export const getScheduleByDate = async (req, res) => {
   try {
-    let info = await doctorService.getScheduleByDate(
+    const info = await doctorService.getScheduleByDate(
       req.query.doctorId,
       req.query.date
     );
     return res.status(200).json(info);
   } catch (e) {
-    console.log(e);
-    return res.status(200).json({
+    console.error(e);
+    return res.status(500).json({
       errCode: -1,
-      errMessage: "Error form server!",
+      errMessage: 'Error from server!',
     });
   }
 };
 
-let getExtraDoctorById = async (req, res) => {
+export const getExtraDoctorById = async (req, res) => {
   try {
-    let info = await doctorService.getExtraDoctorById(req.query.doctorId);
+    const info = await doctorService.getExtraDoctorById(req.query.doctorId);
     return res.status(200).json(info);
   } catch (e) {
-    console.log(e);
-    return res.status(200).json({
+    console.error(e);
+    return res.status(500).json({
       errCode: -1,
-      errMessage: "Error form server!",
+      errMessage: 'Error from server!',
     });
   }
 };
 
-let getProfileDoctorById = async (req, res) => {
+export const getProfileDoctorById = async (req, res) => {
   try {
-    let info = await doctorService.getProfileDoctorById(req.query.doctorId);
+    const info = await doctorService.getProfileDoctorById(req.query.doctorId);
     return res.status(200).json(info);
   } catch (e) {
-    console.log(e);
-    return res.status(200).json({
+    console.error(e);
+    return res.status(500).json({
       errCode: -1,
-      errMessage: "Error form server!",
+      errMessage: 'Error from server!',
     });
   }
 };
 
-let getListPatientForDoctor = async (req, res) => {
+export const getListPatientForDoctor = async (req, res) => {
   try {
-    let info = await doctorService.getListPatientForDoctor(
+    const info = await doctorService.getListPatientForDoctor(
       req.query.doctorId,
       req.query.date
     );
     return res.status(200).json(info);
   } catch (e) {
-    console.log(e);
-    return res.status(200).json({
+    console.error(e);
+    return res.status(500).json({
       errCode: -1,
-      errMessage: "Error form server!",
+      errMessage: 'Error from server!',
     });
   }
 };
 
-let sendRemedy = async (req, res) => {
+export const sendRemedy = async (req, res) => {
   try {
-    let info = await doctorService.sendRemedy(req.body);
+    const info = await doctorService.sendRemedy(req.body);
     return res.status(200).json(info);
   } catch (e) {
-    console.log(e);
-    return res.status(200).json({
+    console.error(e);
+    return res.status(500).json({
       errCode: -1,
-      errMessage: "Error form server!",
+      errMessage: 'Error from server!',
     });
   }
 };
 
-module.exports = {
-  getTopDoctorHome: getTopDoctorHome,
-  getAllDoctors: getAllDoctors,
-  postInfoDoctor: postInfoDoctor,
-  getDetailDoctorById: getDetailDoctorById,
-  bulkCreateSchedule: bulkCreateSchedule,
-  getScheduleByDate: getScheduleByDate,
-  getExtraDoctorById: getExtraDoctorById,
-  getProfileDoctorById: getProfileDoctorById,
-  getListPatientForDoctor: getListPatientForDoctor,
-  sendRemedy: sendRemedy,
+export default {
+  getTopDoctorHome,
+  getAllDoctors,
+  postInfoDoctor,
+  getDetailDoctorById,
+  bulkCreateSchedule,
+  getScheduleByDate,
+  getExtraDoctorById,
+  getProfileDoctorById,
+  getListPatientForDoctor,
+  sendRemedy,
 };

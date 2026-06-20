@@ -1,49 +1,49 @@
-import specialtyService from "../services/specialtyService";
+import specialtyService from '../services/specialtyService.js';
 
-let createSpecialty = async (req, res) => {
+export const createSpecialty = async (req, res) => {
   try {
-    let info = await specialtyService.createSpecialty(req.body);
+    const info = await specialtyService.createSpecialty(req.body);
     return res.status(200).json(info);
   } catch (e) {
-    console.log(e);
-    return res.status(200).json({
+    console.error(e);
+    return res.status(500).json({
       errCode: -1,
-      errMessage: "Error form server!",
+      errMessage: 'Error from server!',
     });
   }
 };
 
-let getAllSpecialty = async (req, res) => {
+export const getAllSpecialty = async (req, res) => {
   try {
-    let info = await specialtyService.getAllSpecialty();
+    const info = await specialtyService.getAllSpecialty();
     return res.status(200).json(info);
   } catch (e) {
-    console.log(e);
-    return res.status(200).json({
+    console.error(e);
+    return res.status(500).json({
       errCode: -1,
-      errMessage: "Error form server!",
+      errMessage: 'Error from server!',
     });
   }
 };
 
-let getDetailSpecialtyById = async (req, res) => {
+export const getDetailSpecialtyById = async (req, res) => {
   try {
-    let info = await specialtyService.getDetailSpecialtyById(
+    const info = await specialtyService.getDetailSpecialtyById(
       req.query.id,
       req.query.location
     );
     return res.status(200).json(info);
   } catch (e) {
-    console.log(e);
-    return res.status(200).json({
+    console.error(e);
+    return res.status(500).json({
       errCode: -1,
-      errMessage: "Error form server!",
+      errMessage: 'Error from server!',
     });
   }
 };
 
-module.exports = {
-  createSpecialty: createSpecialty,
+export default {
+  createSpecialty,
   getAllSpecialty,
-  getDetailSpecialtyById: getDetailSpecialtyById,
+  getDetailSpecialtyById,
 };

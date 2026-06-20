@@ -1,0 +1,115 @@
+{
+  "home-header": {
+    "specialty": "Medical specialty",
+    "search-doctor": "Find a doctor by department",
+    "health-facility": "Facility",
+    "select-room": "Select hospital clinic",
+    "doctor": "Doctor",
+    "select-doctor": "Good doctor",
+    "fee": "Examination package",
+    "check-health": "General health check",
+    "support": "Support",
+    "welcome": "Welcome, "
+  },
+  "banner": {
+    "title1": "MEDICAL PLATFORM",
+    "title2": "COMPREHENSIVE HEALTH CARE",
+    "child1": "Explore science in depth",
+    "child2": "Remote examination",
+    "child3": "General examination",
+    "child4": "Medical tests",
+    "child5": "Mental health",
+    "child6": "Dental examination"
+  },
+  "menu": {
+    "admin": {
+      "manage-user": "Users Systems",
+      "manage-doctor": "Manage doctors",
+      "manage-admin": "Manage admin",
+      "crud": "CRUD user",
+      "crud-redux": "CRUD redux",
+      "clinic": "Clinics",
+      "manage-clinic": "Manage clinics",
+      "specialty": "Specialties",
+      "manage-specialty": "Manage specialties",
+      "handbook": "Handbook",
+      "manage-handbook": "Manage handbooks"
+    },
+    "doctor": {
+      "manage-schedule": "Manage Doctor's Schedule",
+      "manage-patient": "Manage Doctor's Patient"
+    }
+  },
+  "manage-user": {
+    "add": "Add a new user",
+    "email": "Email",
+    "password": "Password",
+    "firstName": "First name",
+    "lastName": "Last Name",
+    "phoneNumber": "Phone number",
+    "address": "Address",
+    "position": "Position",
+    "role": "Role",
+    "image": "Avatar",
+    "gender": "Gender",
+    "save": "Save user",
+    "edit": "Save changes"
+  },
+  "homepage": {
+    "outstanding-doctor": "Outstanding doctor of the week",
+    "more-info": "MORE INFO",
+    "specialty-popular": "Popular specialty"
+  },
+  "manage-schedule": {
+    "title": "Planned Pathologist Management",
+    "choose-doctor": "Choose Doctor",
+    "choose-date": "Choose Date",
+    "save": "Save Info"
+  },
+  "patient": {
+    "detail-doctor": {
+      "schedule": "Schedule",
+      "no-schedule": "No appointments available at this time please choose another time!",
+      "choose": "Choose ",
+      "book-free": " and book (free)"
+    },
+    "extra-info-doctor": {
+      "text-address": "CLINIC ADDRESS",
+      "price": "Examination price",
+      "detail": "See details",
+      "payment": "Patients can pay by: ",
+      "hide-price": "Hide price list"
+    },
+    "booking-modal": {
+      "title": "Medical examination schedule information",
+      "fullName": "Full name",
+      "phoneNumber": "Phone number",
+      "email": "Email",
+      "address": "Address",
+      "reason": "Reason for examination",
+      "birthday": "Birthday",
+      "gender": "Gender",
+      "btn-confirm": "Confirm",
+      "btn-cancel": "Cancel",
+      "freeBooking": "Free appointment",
+      "price": "Price: "
+    }
+  },
+  "admin": {
+    "manage-doctor": {
+      "title": "Create new doctor information",
+      "select-doctor": "Select doctor",
+      "intro": "Introduction",
+      "add": "Create info",
+      "save": "Save info",
+      "price": "Price",
+      "payment": "Payment",
+      "province": "Province",
+      "nameClinic": "Clinic Name",
+      "addressClinic": "Clinic Address",
+      "note": "Note",
+      "specialty": "Select specialty",
+      "select-clinic": "Select clinic"
+    }
+  }
+}

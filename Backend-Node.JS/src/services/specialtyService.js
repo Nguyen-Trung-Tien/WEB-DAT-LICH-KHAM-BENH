@@ -1,100 +1,111 @@
-import db from "../models/index";
+import db from '../models/index.js';
 
-let createSpecialty = (data) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      if (
-        !data.name ||
-        !data.imageBase64 ||
-        !data.descriptionHTML ||
-        !data.descriptionMarkdown
-      ) {
-        resolve({
-          errCode: -1,
-          errMessage: "Missing required parameter !",
-        });
-      } else {
-        await db.Specialty.create({
-          name: data.name,
-          image: data.imageBase64,
-          descriptionHTML: data.descriptionHTML,
-          descriptionMarkdown: data.descriptionMarkdown,
-        });
-        resolve({
-          errCode: 0,
-          errMessage: "OK",
-        });
-      }
-    } catch (e) {
-      reject(e);
+export const createSpecialty = async (data) => {
+  try {
+    if (
+      !data.name ||
+      !data.imageBase64 ||
+      !data.descriptionHTML ||
+      !data.descriptionMarkdown
+    ) {
+      return {
+        errCode: -1,
+        errMessage: 'Missing required parameters!',
+      };
     }
-  });
+
+    await db.Specialty.create({
+      name: data.name,
+      image: data.imageBase64,
+      descriptionHTML: data.descriptionHTML,
+      descriptionMarkdown: data.descriptionMarkdown,
+    });
+
+    return {
+      errCode: 0,
+      errMessage: 'OK',
+    };
+  } catch (error) {
+    throw error;
+  }
 };
 
-let getAllSpecialty = () => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      let data = await db.Specialty.findAll();
-      if (data && data.length > 0) {
-        data.map((item) => {
-          item.image = new Buffer(item.image, "base64").toString("binary");
-          return item;
-        });
-      }
-      resolve({ errCode: 0, errMessage: "OK", data });
-    } catch (e) {
-      reject(e);
-    }
-  });
-};
-
-let getDetailSpecialtyById = (inputId, location) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      if (!inputId || !location) {
-        resolve({
-          errCode: -1,
-          errMessage: "Missing required parameter !",
-        });
-      } else {
-        let data = await db.Specialty.findOne({
-          where: { id: inputId },
-          attributes: ["descriptionHTML", "descriptionMarkdown"],
-        });
-
-        if (data) {
-          let doctorSpecialty = [];
-          if (location == "All") {
-            doctorSpecialty = await db.Doctor_Info.findAll({
-              where: { specialtyId: inputId },
-              attributes: ["doctorId", "provinceId"],
-            });
-          } else {
-            // find by location
-            doctorSpecialty = await db.Doctor_Info.findAll({
-              where: {
-                specialtyId: inputId,
-                provinceId: location,
-              },
-              attributes: ["doctorId", "provinceId"],
-            });
+export const getAllSpecialty = async () => {
+  try {
+    const data = await db.Specialty.findAll();
+    if (data && data.length > 0) {
+      data.forEach((item) => {
+        if (item.image) {
+          try {
+            item.image = Buffer.from(item.image, 'base64').toString('binary');
+          } catch (e) {
+            // If already binary or invalid base64, leave as is
           }
+        }
+      });
+    }
+    return {
+      errCode: 0,
+      errMessage: 'OK',
+      data,
+    };
+  } catch (error) {
+    throw error;
+  }
+};
 
-          data.doctorSpecialty = doctorSpecialty;
-        } else data = {};
-        resolve({
-          errCode: 0,
-          errMessage: "OK",
-          data,
+export const getDetailSpecialtyById = async (inputId, location) => {
+  try {
+    if (!inputId || !location) {
+      return {
+        errCode: -1,
+        errMessage: 'Missing required parameters!',
+      };
+    }
+
+    let data = await db.Specialty.findOne({
+      where: { id: inputId },
+      attributes: ['descriptionHTML', 'descriptionMarkdown'],
+    });
+
+    if (data) {
+      // Find doctors in this specialty
+      let doctorSpecialty = [];
+      if (location === 'All') {
+        doctorSpecialty = await db.Doctor_Info.findAll({
+          where: { specialtyId: inputId },
+          attributes: ['doctorId', 'provinceId'],
+        });
+      } else {
+        // Find by location
+        doctorSpecialty = await db.Doctor_Info.findAll({
+          where: {
+            specialtyId: inputId,
+            provinceId: location,
+          },
+          attributes: ['doctorId', 'provinceId'],
         });
       }
-    } catch (e) {
-      reject(e);
+      // Since Sequelize findOne might return read-only raw values or model instances,
+      // we attach the doctorSpecialty property. We convert it to a plain object first.
+      data = data.get({ plain: true });
+      data.doctorSpecialty = doctorSpecialty;
+    } else {
+      data = {};
     }
-  });
+
+    return {
+      errCode: 0,
+      errMessage: 'OK',
+      data,
+    };
+  } catch (error) {
+    throw error;
+  }
 };
-module.exports = {
-  createSpecialty: createSpecialty,
-  getAllSpecialty: getAllSpecialty,
-  getDetailSpecialtyById: getDetailSpecialtyById,
+
+export default {
+  createSpecialty,
+  getAllSpecialty,
+  getDetailSpecialtyById,
 };

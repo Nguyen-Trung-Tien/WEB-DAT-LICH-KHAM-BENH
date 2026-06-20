@@ -1,40 +1,34 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "Backend express NodeJS",
-  "main": "server.js",
+  "description": "Rebuilt Backend for Doctor Appointment Web App using Express 5 and ES Modules",
+  "main": "src/server.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec npx babel-node src/server.js",
-    "build-src": "babel src -d build --copy-files",
-    "build": "node build/server.js"
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
   },
   "keywords": [
     "fullstack",
     "nodejs",
-    "express"
+    "express5",
+    "sequelize"
   ],
   "author": "Nguyen Trung Tien",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
-    "dotenv": "^8.6.0",
-    "ejs": "^3.1.5",
-    "express": "^4.17.1",
+    "dotenv": "^16.4.5",
+    "express": "^5.0.1",
     "lodash": "^4.17.21",
-    "mysql2": "^3.14.3",
-    "nodemailer": "6.6.3",
-    "sequelize": "^6.37.7",
-    "uuid": "8.3.2"
+    "mysql2": "^3.11.0",
+    "nodemailer": "^6.9.14",
+    "sequelize": "^6.37.3",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.28.3",
-    "@babel/core": "^7.28.4",
-    "@babel/node": "^7.27.1",
-    "@babel/preset-env": "^7.27.2",
-    "nodemon": "^2.0.7",
-    "sequelize-cli": "^6.6.3"
+    "nodemon": "^3.1.4",
+    "sequelize-cli": "^6.6.2"
   }
 }

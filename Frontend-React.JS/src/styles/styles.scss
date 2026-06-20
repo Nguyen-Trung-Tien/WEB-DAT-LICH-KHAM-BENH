@@ -1,11 +1,186 @@
-@import "variables";
-@import "../../node_modules/bootstrap/scss/bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-$fa-font-path : "~@fortawesome/fontawesome-free-webfonts/webfonts";
-@import "~@fortawesome/fontawesome-free-webfonts/scss/fontawesome.scss";
-@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-solid.scss";
-@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-regular.scss";
-@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-brands.scss";
+// Design Tokens & Colors
+$colormain: #457b9d; // Modern premium teal/blue
+$colormain-dark: #1d3557; // Deep navy
+$colorsub: #e63946; // Accent red
+$bg-light: #f8f9fa;
+$bg-dark: #0f172a;
+$text-muted: #64748b;
+$border-color: #e2e8f0;
 
-@import "base";
-@import "form";
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #fcfcfc;
+  color: #1e293b;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  overflow-y: auto !important; // Allow page scrolling
+  -webkit-font-smoothing: antialiased;
+}
+
+// Custom Scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+// Premium Common UI Elements
+.text-main-color {
+  color: $colormain;
+}
+
+.bg-main-color {
+  background-color: $colormain;
+}
+
+.hover-glow {
+  transition: all 0.3s ease;
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.08);
+  }
+}
+
+// Glassmorphism effect for modern cards
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+  border-radius: 12px;
+}
+
+// Header & Navigation Menu
+.main-header {
+  border-bottom: 1px solid $border-color;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+}
+
+// Banner Section
+.home-banner {
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(29, 53, 87, 0.7), rgba(69, 123, 157, 0.9));
+  }
+  .banner-content {
+    position: relative;
+    z-index: 2;
+    color: white;
+  }
+}
+
+// Custom Section Titles
+.section-title {
+  font-weight: 700;
+  color: $colormain-dark;
+  position: relative;
+  padding-bottom: 10px;
+  margin-bottom: 25px;
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 60px;
+    height: 4px;
+    background-color: $colorsub;
+    border-radius: 2px;
+  }
+}
+
+.section-title-center {
+  @extend .section-title;
+  text-align: center;
+  &::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+// Custom buttons
+.btn-premium-main {
+  background-color: $colormain;
+  color: white;
+  border: none;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  &:hover {
+    background-color: darken($colormain, 8%);
+    color: white;
+    transform: translateY(-1px);
+  }
+}
+
+.btn-premium-sub {
+  background-color: $colorsub;
+  color: white;
+  border: none;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  &:hover {
+    background-color: darken($colorsub, 8%);
+    color: white;
+    transform: translateY(-1px);
+  }
+}
+
+// System/Admin Layout Classes
+.system-layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  .system-sidebar {
+    width: 260px;
+    background-color: $colormain-dark;
+    color: white;
+    overflow-y: auto;
+  }
+  .system-content {
+    flex: 1;
+    overflow-y: auto;
+    background-color: #f1f5f9;
+  }
+}
+
+// Custom schedule button list
+.schedule-btn {
+  border: 1px solid $colormain;
+  background-color: #fff;
+  color: #333;
+  padding: 10px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  &.active {
+    background-color: $colormain;
+    color: #fff;
+  }
+  &:hover:not(.active) {
+    background-color: rgba(69, 123, 157, 0.1);
+  }
+}

@@ -1,32 +1,32 @@
-import patientService from "../services/patientService";
+import patientService from '../services/patientService.js';
 
-let postBookAppointment = async (req, res) => {
+export const postBookAppointment = async (req, res) => {
   try {
-    let info = await patientService.postBookAppointment(req.body);
+    const info = await patientService.postBookAppointment(req.body);
     return res.status(200).json(info);
   } catch (e) {
-    console.log(e);
-    return res.status(200).json({
+    console.error(e);
+    return res.status(500).json({
       errCode: -1,
-      errMessage: "Error form server!",
+      errMessage: 'Error from server!',
     });
   }
 };
 
-let postVerifyBookAppointment = async (req, res) => {
+export const postVerifyBookAppointment = async (req, res) => {
   try {
-    let info = await patientService.postVerifyBookAppointment(req.body);
+    const info = await patientService.postVerifyBookAppointment(req.body);
     return res.status(200).json(info);
   } catch (e) {
-    console.log(e);
-    return res.status(200).json({
+    console.error(e);
+    return res.status(500).json({
       errCode: -1,
-      errMessage: "Error form server!",
+      errMessage: 'Error from server!',
     });
   }
 };
 
-module.exports = {
-  postBookAppointment: postBookAppointment,
-  postVerifyBookAppointment: postVerifyBookAppointment,
+export default {
+  postBookAppointment,
+  postVerifyBookAppointment,
 };

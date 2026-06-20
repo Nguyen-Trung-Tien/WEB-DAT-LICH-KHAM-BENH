@@ -1,49 +1,44 @@
-import express from "express";
-import bodyParser from "body-parser";
-import viewEngine from "./config/viewEngine";
-import initWebRouters from "./route/web";
-import cors from "cors";
-import connectDB from "./config/connectDB";
-require("dotenv").config();
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import { connectDB } from './config/connectDB.js';
+import initWebRoutes from './routes/web.js';
 
-let app = express();
-// app.use(cors({ credentials: true, origin: true }));
-// config app
-// Add headers before the routes are defined
-app.use(function (req, res, next) {
-  // Website you wish to allow to connect
-  res.setHeader("Access-Control-Allow-Origin", process.env.URL_REACT);
+dotenv.config();
 
-  // Request methods you wish to allow
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
+const app = express();
 
-  // Request headers you wish to allow
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "X-Requested-With,content-type"
-  );
+// Configure CORS
+app.use(cors({
+  origin: process.env.URL_REACT || 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  credentials: true
+}));
 
-  // Set to true if you need the website to include cookies in the requests sent
-  // to the API (e.g. in case you use sessions)
-  res.setHeader("Access-Control-Allow-Credentials", true);
+// Body parser configuration for large base64 image payloads (50mb limit)
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
-  // Pass to next layer of middleware
-  next();
+// Initialize API routes
+initWebRoutes(app);
+
+// Connect to Database
+connectDB();
+
+// Global Express 5 Error Handler
+app.use((err, req, res, next) => {
+  console.error('Unhandled Server Error:', err);
+  return res.status(500).json({
+    status: 'error',
+    message: err.message || 'Something went wrong inside the server!',
+  });
 });
 
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json({ limit: "50mb" }));
-app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
-viewEngine(app);
-initWebRouters(app);
-
-connectDB();
-let port = process.env.PORT || 8080;
+const port = process.env.PORT || 8080;
 
 app.listen(port, () => {
-  console.log("Backend is running on the port: " + port);
+  console.log(`BookingCare API is running on port: ${port}`);
 });
+
+export default app;

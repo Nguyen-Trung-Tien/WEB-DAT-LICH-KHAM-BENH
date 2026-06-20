@@ -1,45 +1,46 @@
-import clinicService from "../services/clinicService";
+import clinicService from '../services/clinicService.js';
 
-let createClinic = async (req, res) => {
+export const createClinic = async (req, res) => {
   try {
-    let info = await clinicService.createClinic(req.body);
+    const info = await clinicService.createClinic(req.body);
     return res.status(200).json(info);
   } catch (e) {
-    console.log(e);
-    return res.status(200).json({
+    console.error(e);
+    return res.status(500).json({
       errCode: -1,
-      errMessage: "Error form server!",
+      errMessage: 'Error from server!',
     });
   }
 };
 
-let getAllClinic = async (req, res) => {
+export const getAllClinic = async (req, res) => {
   try {
-    let info = await clinicService.getAllClinic();
+    const info = await clinicService.getAllClinic();
     return res.status(200).json(info);
   } catch (e) {
-    console.log(e);
-    return res.status(200).json({
+    console.error(e);
+    return res.status(500).json({
       errCode: -1,
-      errMessage: "Error form server!",
+      errMessage: 'Error from server!',
     });
   }
 };
 
-let getDetailClinicById = async (req, res) => {
+export const getDetailClinicById = async (req, res) => {
   try {
-    let info = await clinicService.getDetailClinicById(req.query.id);
+    const info = await clinicService.getDetailClinicById(req.query.id);
     return res.status(200).json(info);
   } catch (e) {
-    console.log(e);
-    return res.status(200).json({
+    console.error(e);
+    return res.status(500).json({
       errCode: -1,
-      errMessage: "Error form server!",
+      errMessage: 'Error from server!',
     });
   }
 };
-module.exports = {
-  createClinic: createClinic,
-  getAllClinic: getAllClinic,
-  getDetailClinicById: getDetailClinicById,
+
+export default {
+  createClinic,
+  getAllClinic,
+  getDetailClinicById,
 };
