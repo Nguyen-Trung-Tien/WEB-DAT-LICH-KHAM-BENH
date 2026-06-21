@@ -22,6 +22,7 @@ import {
 import {
   postBookAppointment,
   postVerifyBookAppointment,
+  updateBookingStatus,
 } from '../controllers/patientController.js';
 import {
   createSpecialty,
@@ -33,6 +34,13 @@ import {
   getAllClinic,
   getDetailClinicById,
 } from '../controllers/clinicController.js';
+import { handleGetDashboardStats } from '../controllers/dashboardController.js';
+import { handleCreateReview, handleGetReviews } from '../controllers/reviewController.js';
+import {
+  createMedicalPackage,
+  getAllMedicalPackages,
+  getDetailMedicalPackageById,
+} from '../controllers/medicalPackageController.js';
 
 const router = express.Router();
 
@@ -69,6 +77,14 @@ export const initWebRoutes = (app) => {
   // Patient Booking APIs
   router.post('/api/patient-book-appointment', postBookAppointment);
   router.post('/api/verify-book-appointment', postVerifyBookAppointment);
+  router.put('/api/update-booking-status', updateBookingStatus);
+
+  // Review APIs
+  router.post('/api/create-review', handleCreateReview);
+  router.get('/api/get-reviews', handleGetReviews);
+
+  // Dashboard Stats API
+  router.get('/api/get-dashboard-stats', handleGetDashboardStats);
 
   // Specialty APIs
   router.post('/api/create-new-specialty', createSpecialty);
@@ -79,6 +95,11 @@ export const initWebRoutes = (app) => {
   router.post('/api/create-new-clinic', createClinic);
   router.get('/api/get-all-clinic', getAllClinic);
   router.get('/api/get-detail-clinic-by-id', getDetailClinicById);
+
+  // Medical Package APIs
+  router.post('/api/create-new-medical-package', createMedicalPackage);
+  router.get('/api/get-all-medical-packages', getAllMedicalPackages);
+  router.get('/api/get-detail-medical-package-by-id', getDetailMedicalPackageById);
 
   return app.use('/', router);
 };

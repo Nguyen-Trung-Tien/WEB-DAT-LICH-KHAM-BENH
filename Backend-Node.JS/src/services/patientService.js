@@ -114,7 +114,40 @@ export const postVerifyBookAppointment = async (data) => {
   }
 };
 
+export const updateBookingStatus = async (data) => {
+  try {
+    if (!data.id || !data.statusId) {
+      return {
+        errCode: -1,
+        errMessage: 'Missing required parameters (id, statusId)!',
+      };
+    }
+
+    const booking = await db.Booking.findOne({
+      where: { id: data.id },
+      raw: false,
+    });
+
+    if (booking) {
+      booking.statusId = data.statusId;
+      await booking.save();
+      return {
+        errCode: 0,
+        errMessage: 'Update booking status success!',
+      };
+    } else {
+      return {
+        errCode: 1,
+        errMessage: 'Booking appointment not found!',
+      };
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   postBookAppointment,
   postVerifyBookAppointment,
+  updateBookingStatus,
 };

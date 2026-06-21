@@ -1,20 +1,22 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../config/connectDB.js';
 
-class Clinic extends Model {}
+class MedicalPackage extends Model {}
 
-Clinic.init(
+MedicalPackage.init(
   {
     name: DataTypes.STRING,
-    address: DataTypes.STRING,
+    price: DataTypes.STRING,
+    clinicId: DataTypes.INTEGER,
+    specialtyId: DataTypes.INTEGER,
     descriptionHTML: DataTypes.TEXT,
     descriptionMarkdown: DataTypes.TEXT,
     image: DataTypes.TEXT('long'),
   },
   {
     sequelize,
-    modelName: 'Clinic',
+    modelName: 'MedicalPackage',
   }
 );
 
-export default Clinic;
+export default MedicalPackage;

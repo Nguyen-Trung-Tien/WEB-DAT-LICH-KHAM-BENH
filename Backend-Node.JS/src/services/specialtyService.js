@@ -36,10 +36,8 @@ export const getAllSpecialty = async () => {
     if (data && data.length > 0) {
       data.forEach((item) => {
         if (item.image) {
-          try {
-            item.image = Buffer.from(item.image, 'base64').toString('binary');
-          } catch (e) {
-            // If already binary or invalid base64, leave as is
+          if (Buffer.isBuffer(item.image)) {
+            item.image = item.image.toString('binary');
           }
         }
       });

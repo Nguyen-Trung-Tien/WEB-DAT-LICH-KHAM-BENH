@@ -15,7 +15,7 @@
     "title1": "NỀN TẢNG Y TẾ",
     "title2": "CHĂM SÓC SỨC KHỎE TOÀN DIỆN",
     "child1": "Khám chuyên khoa",
-    "child2": "Khám từ xa",
+    "child2": "Khám từ bệnh xa",
     "child3": "Khám tổng quát",
     "child4": "Xét nghiệm y học",
     "child5": "Sức khỏe tinh thần",
@@ -33,7 +33,8 @@
       "specialty": "Chuyên khoa",
       "manage-specialty": "Quản lý chuyên khoa",
       "handbook": "Bài đăng",
-      "manage-handbook": "Quản lý bài đăng"
+      "manage-handbook": "Quản lý bài đăng",
+      "manage-package": "Quản lý gói khám"
     },
     "doctor": {
       "manage-schedule": "Quản lý kế hoạch khám",
@@ -58,7 +59,8 @@
   "homepage": {
     "outstanding-doctor": "Bác sĩ nổi bật tuần qua",
     "more-info": "XEM THÊM",
-    "specialty-popular": "Chuyên khoa phổ biến"
+    "specialty-popular": "Chuyên khoa phổ biến",
+    "featured-package": "Gói khám nổi bật"
   },
   "manage-schedule": {
     "title": "Quản lý kế hoạch khám bệnh bác sỹ",

@@ -8,7 +8,7 @@ Specialty.init(
     name: DataTypes.STRING,
     descriptionHTML: DataTypes.TEXT,
     descriptionMarkdown: DataTypes.TEXT,
-    image: DataTypes.TEXT,
+    image: DataTypes.TEXT('long'),
   },
   {
     sequelize,

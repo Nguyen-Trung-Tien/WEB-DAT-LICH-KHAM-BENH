@@ -1,10 +1,10 @@
 import db from '../models/index.js';
 
-export const createClinic = async (data) => {
+export const createMedicalPackage = async (data) => {
   try {
     if (
       !data.name ||
-      !data.address ||
+      !data.price ||
       !data.imageBase64 ||
       !data.descriptionHTML ||
       !data.descriptionMarkdown
@@ -15,9 +15,11 @@ export const createClinic = async (data) => {
       };
     }
 
-    await db.Clinic.create({
+    await db.MedicalPackage.create({
       name: data.name,
-      address: data.address,
+      price: data.price,
+      clinicId: data.clinicId ? Number(data.clinicId) : null,
+      specialtyId: data.specialtyId ? Number(data.specialtyId) : null,
       image: data.imageBase64,
       descriptionHTML: data.descriptionHTML,
       descriptionMarkdown: data.descriptionMarkdown,
@@ -32,9 +34,14 @@ export const createClinic = async (data) => {
   }
 };
 
-export const getAllClinic = async () => {
+export const getAllMedicalPackages = async () => {
   try {
-    const data = await db.Clinic.findAll();
+    const data = await db.MedicalPackage.findAll({
+      include: [
+        { model: db.Clinic, as: 'clinicData', attributes: ['name', 'address'] },
+        { model: db.Specialty, as: 'specialtyData', attributes: ['name'] }
+      ]
+    });
     if (data && data.length > 0) {
       data.forEach((item) => {
         if (item.image) {
@@ -54,7 +61,7 @@ export const getAllClinic = async () => {
   }
 };
 
-export const getDetailClinicById = async (inputId) => {
+export const getDetailMedicalPackageById = async (inputId) => {
   try {
     if (!inputId) {
       return {
@@ -63,24 +70,21 @@ export const getDetailClinicById = async (inputId) => {
       };
     }
 
-    let data = await db.Clinic.findOne({
+    let data = await db.MedicalPackage.findOne({
       where: { id: inputId },
-      attributes: [
-        'name',
-        'address',
-        'descriptionHTML',
-        'descriptionMarkdown',
-      ],
+      include: [
+        { model: db.Clinic, as: 'clinicData', attributes: ['name', 'address'] },
+        { model: db.Specialty, as: 'specialtyData', attributes: ['name'] }
+      ]
     });
 
     if (data) {
-      const doctorClinic = await db.Doctor_Info.findAll({
-        where: { clinicId: inputId }, // maps to clinicId in our Doctor_Info model
-        attributes: ['doctorId', 'provinceId'],
-      });
-
+      if (data.image) {
+        if (Buffer.isBuffer(data.image)) {
+          data.image = data.image.toString('binary');
+        }
+      }
       data = data.get({ plain: true });
-      data.doctorClinic = doctorClinic;
     } else {
       data = {};
     }
@@ -96,7 +100,7 @@ export const getDetailClinicById = async (inputId) => {
 };
 
 export default {
-  createClinic,
-  getAllClinic,
-  getDetailClinicById,
+  createMedicalPackage,
+  getAllMedicalPackages,
+  getDetailMedicalPackageById,
 };

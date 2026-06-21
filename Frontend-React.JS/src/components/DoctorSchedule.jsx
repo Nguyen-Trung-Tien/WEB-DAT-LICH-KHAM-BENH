@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Row, Col, Button, Spinner } from 'react-bootstrap';
+import { Row, Col, Spinner } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { Calendar, Hand } from 'lucide-react';
 import dayjs from 'dayjs';
@@ -81,10 +81,6 @@ const DoctorSchedule = ({ doctorId, doctorData }) => {
     fetchSchedule();
   }, [doctorId, selectedDate]);
 
-  const handleDateChange = (e) => {
-    setSelectedDate(e.target.value);
-  };
-
   const handleTimeClick = (slot) => {
     // Inject doctorData to make sure BookingModal has doctor detail (lastName, firstName)
     const slotWithDoctor = { ...slot, doctorData };
@@ -93,46 +89,53 @@ const DoctorSchedule = ({ doctorId, doctorData }) => {
   };
 
   return (
-    <div className="p-3 bg-white border rounded shadow-sm">
-      {/* Date Select */}
-      <div className="mb-4">
-        <Form.Group controlId="select-date">
-          <Form.Select className="w-auto fw-semibold border border-primary text-primary py-2" value={selectedDate} onChange={handleDateChange}>
-            {allDays.map((day, idx) => (
-              <option key={idx} value={day.value}>
+    <div className="p-4 bg-white border-0 shadow-sm card" style={{ borderRadius: '16px' }}>
+      {/* Date Slider Horizontal */}
+      <div className="mb-3">
+        <h6 className="fw-bold text-secondary uppercase mb-2">Chọn ngày khám bệnh:</h6>
+        <div className="date-slider">
+          {allDays.map((day, idx) => {
+            const isActive = selectedDate === String(day.value);
+            return (
+              <div
+                key={idx}
+                className={`date-slide-item ${isActive ? 'active' : ''}`}
+                onClick={() => setSelectedDate(String(day.value))}
+              >
                 {day.label}
-              </option>
-            ))}
-          </Form.Select>
-        </Form.Group>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       {/* Available Times Title */}
       <div className="d-flex align-items-center gap-2 mb-3 text-secondary border-bottom pb-2">
-        <Calendar size={18} className="text-primary" />
-        <span className="fw-bold uppercase tracking-wide">{t('patient.detail-doctor.schedule')}</span>
+        <Calendar size={18} className="text-teal" />
+        <span className="fw-bold uppercase tracking-wide" style={{ color: 'var(--text-main)' }}>
+          {t('patient.detail-doctor.schedule')}
+        </span>
       </div>
 
       {/* Available Times Buttons */}
       <div className="time-content">
         {loading ? (
-          <div className="py-3 text-center">
+          <div className="py-4 text-center">
             <Spinner animation="border" size="sm" variant="primary" />
           </div>
         ) : availableTimes.length > 0 ? (
           <>
-            <Row className="g-2 row-cols-2 row-cols-sm-3 row-cols-md-4">
+            <Row className="g-3 row-cols-2 row-cols-sm-3 row-cols-md-4">
               {availableTimes.map((item, idx) => {
                 const timeText = i18n.language === 'vi' ? item.timeTypeData?.valueVi : item.timeTypeData?.valueEn;
                 return (
                   <Col key={idx}>
-                    <Button
-                      variant="outline-primary"
-                      className="w-100 py-2 fw-semibold"
+                    <div
+                      className="time-chip"
                       onClick={() => handleTimeClick(item)}
                     >
                       {timeText}
-                    </Button>
+                    </div>
                   </Col>
                 );
               })}
@@ -145,7 +148,7 @@ const DoctorSchedule = ({ doctorId, doctorData }) => {
             </div>
           </>
         ) : (
-          <div className="no-schedule text-muted py-3 small text-center bg-light rounded border">
+          <div className="no-schedule text-muted py-4 small text-center bg-light rounded border border-opacity-50">
             {t('patient.detail-doctor.no-schedule')}
           </div>
         )}

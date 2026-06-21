@@ -33,7 +33,8 @@
       "specialty": "Specialties",
       "manage-specialty": "Manage specialties",
       "handbook": "Handbook",
-      "manage-handbook": "Manage handbooks"
+      "manage-handbook": "Manage handbooks",
+      "manage-package": "Manage packages"
     },
     "doctor": {
       "manage-schedule": "Manage Doctor's Schedule",
@@ -58,7 +59,8 @@
   "homepage": {
     "outstanding-doctor": "Outstanding doctor of the week",
     "more-info": "MORE INFO",
-    "specialty-popular": "Popular specialty"
+    "specialty-popular": "Popular specialty",
+    "featured-package": "Featured Packages"
   },
   "manage-schedule": {
     "title": "Planned Pathologist Management",

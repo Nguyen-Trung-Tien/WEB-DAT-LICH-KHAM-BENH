@@ -35,10 +35,8 @@ export const getTopDoctorHome = async (limitInput) => {
     // If they need custom base64 formatting, we can convert it here.
     users.forEach((user) => {
       if (user.image) {
-        try {
-          user.image = Buffer.from(user.image, 'base64').toString('binary');
-        } catch (e) {
-          // If already binary, keep as is
+        if (Buffer.isBuffer(user.image)) {
+          user.image = user.image.toString('binary');
         }
       }
     });
@@ -224,10 +222,8 @@ export const getDetailDoctorById = async (inputId) => {
     if (data) {
       data = data.get({ plain: true });
       if (data.image) {
-        try {
-          data.image = Buffer.from(data.image, 'base64').toString('binary');
-        } catch (e) {
-          // If not base64, keep as is
+        if (Buffer.isBuffer(data.image)) {
+          data.image = data.image.toString('binary');
         }
       }
     } else {
@@ -421,10 +417,8 @@ export const getProfileDoctorById = async (inputId) => {
     if (data) {
       data = data.get({ plain: true });
       if (data.image) {
-        try {
-          data.image = Buffer.from(data.image, 'base64').toString('binary');
-        } catch (e) {
-          // If not base64, keep as is
+        if (Buffer.isBuffer(data.image)) {
+          data.image = data.image.toString('binary');
         }
       }
     } else {
@@ -451,7 +445,6 @@ export const getListPatientForDoctor = async (doctorId, date) => {
 
     const data = await db.Booking.findAll({
       where: {
-        statusId: 'S2',
         doctorId: doctorId,
         date: date,
       },

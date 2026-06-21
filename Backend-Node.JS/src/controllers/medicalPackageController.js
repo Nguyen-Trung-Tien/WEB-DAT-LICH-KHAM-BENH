@@ -1,8 +1,8 @@
-import patientService from '../services/patientService.js';
+import medicalPackageService from '../services/medicalPackageService.js';
 
-export const postBookAppointment = async (req, res) => {
+export const createMedicalPackage = async (req, res) => {
   try {
-    const info = await patientService.postBookAppointment(req.body);
+    const info = await medicalPackageService.createMedicalPackage(req.body);
     return res.status(200).json(info);
   } catch (e) {
     console.error(e);
@@ -13,9 +13,9 @@ export const postBookAppointment = async (req, res) => {
   }
 };
 
-export const postVerifyBookAppointment = async (req, res) => {
+export const getAllMedicalPackages = async (req, res) => {
   try {
-    const info = await patientService.postVerifyBookAppointment(req.body);
+    const info = await medicalPackageService.getAllMedicalPackages();
     return res.status(200).json(info);
   } catch (e) {
     console.error(e);
@@ -26,9 +26,9 @@ export const postVerifyBookAppointment = async (req, res) => {
   }
 };
 
-export const updateBookingStatus = async (req, res) => {
+export const getDetailMedicalPackageById = async (req, res) => {
   try {
-    const info = await patientService.updateBookingStatus(req.body);
+    const info = await medicalPackageService.getDetailMedicalPackageById(req.query.id);
     return res.status(200).json(info);
   } catch (e) {
     console.error(e);
@@ -40,7 +40,7 @@ export const updateBookingStatus = async (req, res) => {
 };
 
 export default {
-  postBookAppointment,
-  postVerifyBookAppointment,
-  updateBookingStatus,
+  createMedicalPackage,
+  getAllMedicalPackages,
+  getDetailMedicalPackageById,
 };

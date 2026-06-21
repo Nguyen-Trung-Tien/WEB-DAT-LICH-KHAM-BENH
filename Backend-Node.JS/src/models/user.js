@@ -12,7 +12,7 @@ User.init(
     address: DataTypes.STRING,
     phoneNumber: DataTypes.STRING,
     gender: DataTypes.STRING,
-    image: DataTypes.BLOB,
+    image: DataTypes.TEXT('long'),
     roleId: DataTypes.STRING,
     positionId: DataTypes.STRING,
   },
